@@ -1,0 +1,70 @@
+﻿@if (TempData["Error"] != null)
+{
+    Html.RenderPartial("_error", TempData["Error"]);
+}
+
+<style>
+    .main {
+        border: 1px #4e4848 solid;
+        border-radius: 10px;
+    }
+    .main label{
+        font-weight:bold;
+        font-size:12px;
+        color:#456e71;
+    }
+    .main input {
+        border: 0;
+        border-bottom: 1px #456e71 solid;
+        width:100%
+    }
+</style>
+<div class="text-center">
+    <p>@Model</p>
+    <div class="p-4 mt-3 main">
+        <form method="post">
+            <div class="row">
+                <div class="col-12 text-center mt-2">
+                    <label>Email</label> <br />
+                    <input name="email" type="text" placeholder="Email" />
+                </div>
+                <div class="col-12 text-center mt-2">
+                    <label>First Name</label> <br />
+                    <input name="FirstName" type="text" placeholder="First Name" />
+                </div>
+                <div class="col-12 text-center mt-2">
+                    <label>Last Name</label> <br />
+                    <input name="LastName" type="text" placeholder="Last Name" />
+                </div>
+                <div class="col-12 text-center mt-2">
+                    <label>Phone</label> <br />
+                    <input name="Mobile" type="text" placeholder="+90...." />
+                </div>
+                <div class="col-12 text-center mt-2">
+                    <label>Country ID</label><br />
+                    <input name="CountryID" type="number" />
+                </div>
+                <div class="col-12 text-center mt-2">
+                    <label>A ID</label><br />
+                    <input name="aID" type="number"/>
+                </div>
+                <div class="col-12 text-center mt-2">
+                    <label>Signup IP</label><br />
+                    <input name="SignupIP" type="text" placeholder="192.168.1.1" />
+                </div>
+                <div class="col-12 text-center mt-2">
+                    <label>Password</label><br />
+                    <input name="Password" type="password" placeholder="Password" />
+                </div>
+
+                <div class="col-12 text-center mt-2">
+                    <label>Password Retry</label><br />
+                    <input name="retry" type="password" placeholder="Password" />
+                </div>
+                <div class="col-12 text-center mt-3">
+                    <button type="submit" class="btn btn-success">Login</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

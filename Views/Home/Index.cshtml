@@ -1,0 +1,37 @@
+﻿@if (TempData["Error"] != null)
+{
+    Html.RenderPartial("_error", TempData["Error"]);
+}
+else if (TempData["Success"] != null)
+{
+    Html.RenderPartial("_success", TempData["Success"]);
+}
+<style>
+    .main {
+        border: 1px #4e4848 solid;
+        border-radius: 10px;
+    }
+</style>
+<div class="text-center">
+    <p>@Model</p>
+    <div class="p-4 mt-3 main">
+        <form method="post">
+            <div class="row">
+                <div class="col-12 text-center mt-2">
+                    <label>Username</label>
+                    <input name="UserName" type="text" placeholder="Username" />
+                </div>
+                <div class="col-12 text-center mt-2">
+                    <label>Password</label>
+                    <input name="Password" type="password" placeholder="Password" />
+                </div>
+                <div class="col-12 text-center mt-3">
+                    <button type="submit" class="btn btn-success">Login</button>
+                </div>
+                <div class="col-12 text-center mt-3">
+                    If you haven't account. <a href="/Home/Register">Sign Up..</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
