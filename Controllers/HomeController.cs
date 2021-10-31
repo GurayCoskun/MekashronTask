@@ -1,5 +1,6 @@
 ﻿using Mekashron_Login.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -46,27 +47,22 @@ namespace Mekashron_Login.Controllers
         //Functions
         public void LoginProcess(string x)
         {
-            try
+            LoginSucces res = new LoginSucces();
+            using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(x)))
             {
-                LoginSucces res = new LoginSucces();
-                using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(x)))
-                {
-                    DataContractJsonSerializer deserializer = new DataContractJsonSerializer(typeof(LoginSucces));
-                    res = (LoginSucces)deserializer.ReadObject(ms);
-                }
-                Success("Welcome "+res.FirstName + " " + res.LastName);
+                DataContractJsonSerializer deserializer = new DataContractJsonSerializer(typeof(LoginSucces));
+                res = (LoginSucces)deserializer.ReadObject(ms);
             }
-            catch
-            {
-                Result res = new Result();
+            if (res.FirstName==null){
+                Result res1 = new Result();
                 using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(x)))
                 {
                     DataContractJsonSerializer deserializer = new DataContractJsonSerializer(typeof(Result));
-                    res = (Result)deserializer.ReadObject(ms);
+                    res1 = (Result)deserializer.ReadObject(ms);
                 }
-                Error(res.ResultMessage);
+                Error(res1.ResultMessage);
             }
-           
+            else Success("Welcome " + res.FirstName + " " + res.LastName);          
         }
         public RegisterResult RegisterResult(string x)
         {

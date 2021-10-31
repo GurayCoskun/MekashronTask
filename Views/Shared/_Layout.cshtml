@@ -8,15 +8,37 @@
     <link rel="stylesheet" href="~/css/site.css" />
     </head>
 <body>
-    <div class="container">
-        <main role="main" class="pb-3">
-            <div class="row">
-                <div class="col-4"></div>
-                <div class="col-4">
-                    @RenderBody()
+    <div class="">
+        <main role="main" class="pb-3" >
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color:white !important; border-bottom:1px #808080 solid">
+                    <a class="navbar-brand" href="#">LOGO</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Menu 1</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Menu 2</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Menu 3</a>
+                            </li>
+                        </ul>
+                    </div>
+            </nav>
+            <div class="container">
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        @RenderBody()
+                    </div>
+                    <div class="col-4"></div>
                 </div>
-                <div class="col-4"></div>
             </div>
+            
         </main>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
