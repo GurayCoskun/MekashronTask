@@ -14,9 +14,13 @@ else if (TempData["Success"] != null)
     .main input{
         width:100%;
     }
+    .custom{
+        padding:5px 10px;
+        border:1px #808080 solid;
+        border-radius:30%
+    }
 </style>
 <div class="text-center">
-    <p>@Model</p>
     <div class="p-4 mt-3 main">
         <form method="post">
             <div class="row">
@@ -33,10 +37,7 @@ else if (TempData["Success"] != null)
                     <input name="Password" type="password" placeholder="Password" />
                 </div>
                 <div class="col-12 text-center mt-3">
-                    <button type="submit" class="btn btn-success">Login</button>
-                </div>
-                <div class="col-12 text-center mt-3">
-                    If you haven't account. <a href="/Home/Register">Sign Up..</a>
+                    <button type="submit" class="custom">Login</button>
                 </div>
             </div>
         </form>
