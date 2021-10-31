@@ -10,7 +10,13 @@
 <body>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    @RenderBody()
+                </div>
+                <div class="col-4"></div>
+            </div>
         </main>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

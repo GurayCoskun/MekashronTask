@@ -1,6 +1,7 @@
 ﻿using Mekashron_Login.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
@@ -19,9 +20,7 @@ namespace Mekashron_Login.Controllers
         {
             ServiceReference1.ICUTechClient refs = new ServiceReference1.ICUTechClient();
             var response=refs.LoginAsync(UserName, Password, "IPs").Result.@return;
-            var result= LoginResult(response);
-            if (result.ResultCode==-1) Error(result.ResultMessage); 
-            else Suscess(result.ResultMessage);
+            LoginProcess(response);
             return RedirectToAction("Index");
         }
         public IActionResult Register()
@@ -31,29 +30,43 @@ namespace Mekashron_Login.Controllers
         [HttpPost]
         public IActionResult Register(string email, string Password, string FirstName,string LastName,string Mobile,int CountryID, int aID, string SignupIP, string retry)
         {
-            if (!Password.Equals(retry)) 
+            
+            ServiceReference1.ICUTechClient refs = new ServiceReference1.ICUTechClient();
+            var response = refs.RegisterNewCustomerAsync(email,Password,FirstName,LastName,Mobile,CountryID, aID, SignupIP).Result.@return;
+            var result = RegisterResult(response);
+            if (result.EntityId != -1)
             {
-                Error("Passwords not matched");
-                return RedirectToAction("Register");
+                Success("Registration Successful.");
+                return RedirectToAction("Index");
             }
-            else
-            {
-                ServiceReference1.ICUTechClient refs = new ServiceReference1.ICUTechClient();
-                var response = refs.RegisterNewCustomerAsync(email,Password,FirstName,LastName,Mobile,CountryID, aID, SignupIP).Result.@return;
-                var result = RegisterResult(response);
-                Error(result.ResultMessage.Split(':')[1]);
-                return RedirectToAction("Register");
-            }
+            Error(result.ResultMessage.Split(':')[1]);
+            return RedirectToAction("Register");
+              
         }
         //Functions
-        public Result LoginResult(string x)
+        public void LoginProcess(string x)
         {
-            using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(x)))
+            try
             {
-                DataContractJsonSerializer deserializer = new DataContractJsonSerializer(typeof(Result));
-                Result res = (Result)deserializer.ReadObject(ms);
-                return res;
+                LoginSucces res = new LoginSucces();
+                using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(x)))
+                {
+                    DataContractJsonSerializer deserializer = new DataContractJsonSerializer(typeof(LoginSucces));
+                    res = (LoginSucces)deserializer.ReadObject(ms);
+                }
+                Success("Welcome "+res.FirstName + " " + res.LastName);
             }
+            catch
+            {
+                Result res = new Result();
+                using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(x)))
+                {
+                    DataContractJsonSerializer deserializer = new DataContractJsonSerializer(typeof(Result));
+                    res = (Result)deserializer.ReadObject(ms);
+                }
+                Error(res.ResultMessage);
+            }
+           
         }
         public RegisterResult RegisterResult(string x)
         {
@@ -64,7 +77,7 @@ namespace Mekashron_Login.Controllers
                 return res;
             }
         }
-        public void Suscess(string message)
+        public void Success(string message)
         {
             List<string> messages = TempData["Success"] as List<string> ?? new List<string>();
             messages.Add(message);

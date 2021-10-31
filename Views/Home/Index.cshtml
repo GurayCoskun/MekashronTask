@@ -11,18 +11,25 @@ else if (TempData["Success"] != null)
         border: 1px #4e4848 solid;
         border-radius: 10px;
     }
+    .main input{
+        width:100%;
+    }
 </style>
 <div class="text-center">
     <p>@Model</p>
     <div class="p-4 mt-3 main">
         <form method="post">
             <div class="row">
-                <div class="col-12 text-center mt-2">
-                    <label>Username</label>
+                <div class="col-12 mt-2">
+                    <div class="text-left">
+                        <label>Username</label><br />
+                    </div>
                     <input name="UserName" type="text" placeholder="Username" />
                 </div>
-                <div class="col-12 text-center mt-2">
-                    <label>Password</label>
+                <div class="col-12  mt-2">
+                    <div class="text-left">
+                        <label>Password</label><br />
+                    </div>
                     <input name="Password" type="password" placeholder="Password" />
                 </div>
                 <div class="col-12 text-center mt-3">
